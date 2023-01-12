@@ -30,7 +30,7 @@ const busdABI = [
   }
 ]
 const busd = new ethers.Contract(busdAddress, busdABI, provider)
-const vnt = new ethers.Contract(busdAddress, busdABI, provider)
+const vnt = new ethers.Contract(vntAddress, busdABI, provider)
 
 const run = async () => {
   const houseLeng = (await contract.allHousesLength()).toString();
@@ -40,11 +40,11 @@ const run = async () => {
     const houseI = (await contract.allHouses(i)).toString();
     console.log(houseI)
     const balance = await provider.getBalance(houseI);
-    console.log(ethers.utils.formatEther(balance))
+    console.log("BNB:", ethers.utils.formatEther(balance))
     const BUSDbalance = await busd.balanceOf(houseI);
-    console.log(ethers.utils.formatEther(BUSDbalance))
+    console.log("BUSD:", ethers.utils.formatEther(BUSDbalance))
     const VNTbalance = await vnt.balanceOf(houseI);
-    console.log(ethers.utils.formatEther(VNTbalance))
+    console.log("VNT:", ethers.utils.formatEther(VNTbalance))
   }
   console.log("bot is running");
 }
