@@ -5,6 +5,7 @@ const provider = new ethers.providers.JsonRpcProvider("https://bsc-dataseed1.bin
 const address = "0xb7e9184502C3c883c28173A83b1291d7Ef2571bC"
 const contract = new ethers.Contract(address, ABI, provider);
 const busdAddress = "0xe9e7cea3dedca5984780bafc599bd69add087d56"
+const vntAddress = "0x2f053e33bd590830858161d42C67e9E8A9390019"
 const busdABI = [
   {
     "constant": true,
@@ -29,6 +30,7 @@ const busdABI = [
   }
 ]
 const busd = new ethers.Contract(busdAddress, busdABI, provider)
+const vnt = new ethers.Contract(busdAddress, busdABI, provider)
 
 const run = async () => {
   const houseLeng = (await contract.allHousesLength()).toString();
@@ -41,6 +43,8 @@ const run = async () => {
     console.log(ethers.utils.formatEther(balance))
     const BUSDbalance = await busd.balanceOf(houseI);
     console.log(ethers.utils.formatEther(BUSDbalance))
+    const VNTbalance = await vnt.balanceOf(houseI);
+    console.log(ethers.utils.formatEther(VNTbalance))
   }
   console.log("bot is running");
 }
