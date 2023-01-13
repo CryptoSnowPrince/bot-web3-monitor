@@ -6,7 +6,7 @@
     "scripts": {
         "start": "cross-env NODE_ENV=production node index.js",
         "start-damon": "nodemon index.js",
-        "start-bot": "cross-env NODE_ENV=production pm2 start index.js 1> bot.log",
+        "start-bot": "cross-env NODE_ENV=production pm2 start index.js",
         "stop-bot": "pm2 stop index.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
@@ -14,12 +14,13 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "nodemon": "^2.0.7",
         "axios": "^0.26.1",
         "cross-env": "^7.0.3",
         "dotenv": "^16.0.1",
         "ethers": "^5.6.1",
+        "fs": "^0.0.1-security",
         "log-timestamp": "^0.3.0",
+        "nodemon": "^2.0.7",
         "pm2": "^5.2.0"
     }
 }

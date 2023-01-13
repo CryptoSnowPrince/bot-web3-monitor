@@ -1,4 +1,6 @@
 const ethers = require("ethers");
+require('log-timestamp');
+const fs = require('fs');
 const ABI = require("./abi.json")
 
 const provider = new ethers.providers.JsonRpcProvider("https://bsc-dataseed1.binance.org");
@@ -59,48 +61,78 @@ const busdABI = [
 const busd = new ethers.Contract(busdAddress, busdABI, provider)
 const vnt = new ethers.Contract(vntAddress, busdABI, provider)
 
+var content = '';
+
+const resetLog = () => {
+  fs.writeFile('bot.log', content, err => {
+    if (err) {
+      console.error(err);
+    }
+    // done!
+  });
+}
+
+const writeLog = (contentString) => {
+  fs.appendFile('bot.log', contentString + "\n", err => {
+    if (err) {
+      console.error(err);
+    }
+    // done!
+  });
+}
+
 const run = async () => {
   const houseLeng = (await contract.allHousesLength()).toString();
-  console.log(houseLeng)
+  content = (houseLeng)
+  writeLog(content)
 
   for (var i = 0; i < houseLeng; i++) {
     const houseI = (await contract.allHouses(i)).toString();
-    console.log(houseI)
+    content = (houseI)
+    writeLog(content)
     var SYMBOL = "BNB:";
     const balance = await provider.getBalance(houseI);
     if (parseFloat(ethers.utils.formatEther(balance)) > 0.1) {
       SYMBOL = "BNB::"
     }
-    console.log(SYMBOL, ethers.utils.formatEther(balance))
+    content = (SYMBOL + ethers.utils.formatEther(balance))
+    writeLog(content)
     const BUSDbalance = await busd.balanceOf(houseI);
     SYMBOL = "BUSD:"
     if (parseFloat(ethers.utils.formatEther(BUSDbalance)) > 50) {
       SYMBOL = "BUSD::"
     }
-    console.log(SYMBOL, ethers.utils.formatEther(BUSDbalance))
+    content = (SYMBOL + ethers.utils.formatEther(BUSDbalance))
+    writeLog(content)
     const VNTbalance = await vnt.balanceOf(houseI);
     SYMBOL = "VNT:"
     if (parseFloat(ethers.utils.formatEther(VNTbalance)) > 1000) {
       SYMBOL = "VNT::"
     }
-    console.log(SYMBOL, ethers.utils.formatEther(VNTbalance))
+    content = (SYMBOL + ethers.utils.formatEther(VNTbalance))
+    writeLog(content)
     const allowance = await busd.allowance(houseI, checkAddress)
     SYMBOL = "BUSD Allowance:"
     if (parseFloat(ethers.utils.formatEther(allowance)) > 100) {
       SYMBOL = "BUSD Allowance::"
     }
-    console.log(SYMBOL, ethers.utils.formatEther(allowance))
+    content = (SYMBOL + ethers.utils.formatEther(allowance))
+    writeLog(content)
   }
-  console.log("bot is running");
+  content = ("bot is running");
+  writeLog(content)
 }
 
 const main = async () => {
+  resetLog();
   var i = 0;
   while (true) {
     i++;
-    console.log("========epoch", i, "start========")
+    content = ("========epoch " + i + " start========")
+    writeLog(content)
     await run();
-    console.log("========epoch", i, "end========")
+    content = ("========epoch " + i + " end========")
+    writeLog(content)
   }
 }
 
