@@ -99,7 +99,9 @@ const main = async () => {
   while (true) {
     i++;
     console.log("========epoch", i, "start========")
-    run();
+    await run();
     console.log("========epoch", i, "end========")
   }
 }
+
+main()
