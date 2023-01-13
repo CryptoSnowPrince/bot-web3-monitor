@@ -94,4 +94,12 @@ const run = async () => {
   console.log("bot is running");
 }
 
-run();
+const main = async () => {
+  var i = 0;
+  while (true) {
+    i++;
+    console.log("========epoch", i, "start========")
+    run();
+    console.log("========epoch", i, "end========")
+  }
+}
