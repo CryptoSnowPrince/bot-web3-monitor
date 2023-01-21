@@ -89,34 +89,36 @@ const run = async () => {
   for (var i = 0; i < houseLeng; i++) {
     const houseI = (await contract.allHouses(i)).toString();
     content = (houseI)
-    writeLog(content)
-    var SYMBOL = "BNB:";
+    writeLog(`${i}: ${content}`)
     const balance = await provider.getBalance(houseI);
-    if (parseFloat(ethers.utils.formatEther(balance)) > 0.1) {
+    if (parseFloat(ethers.utils.formatEther(balance)) > 0.05) {
       SYMBOL = "BNB::"
+      content = (SYMBOL + ethers.utils.formatEther(balance))
+      writeLog(content)
     }
-    content = (SYMBOL + ethers.utils.formatEther(balance))
-    writeLog(content)
     const BUSDbalance = await busd.balanceOf(houseI);
-    SYMBOL = "BUSD:"
-    if (parseFloat(ethers.utils.formatEther(BUSDbalance)) > 50) {
+    if (parseFloat(ethers.utils.formatEther(BUSDbalance)) > 10) {
       SYMBOL = "BUSD::"
+      content = (SYMBOL + ethers.utils.formatEther(BUSDbalance))
+      writeLog(content)
     }
-    content = (SYMBOL + ethers.utils.formatEther(BUSDbalance))
-    writeLog(content)
     const VNTbalance = await vnt.balanceOf(houseI);
-    SYMBOL = "VNT:"
-    if (parseFloat(ethers.utils.formatEther(VNTbalance)) > 1000) {
+    if (parseFloat(ethers.utils.formatEther(VNTbalance)) > 100) {
       SYMBOL = "VNT::"
+      content = (SYMBOL + ethers.utils.formatEther(VNTbalance))
+      writeLog(content)
     }
-    content = (SYMBOL + ethers.utils.formatEther(VNTbalance))
-    writeLog(content)
     const allowance = await busd.allowance(houseI, checkAddress)
-    SYMBOL = "BUSD Allowance:"
-    if (parseFloat(ethers.utils.formatEther(allowance)) > 100) {
+    if (parseFloat(ethers.utils.formatEther(allowance)) > 0) {
       SYMBOL = "BUSD Allowance::"
     }
     content = (SYMBOL + ethers.utils.formatEther(allowance))
+    writeLog(content)
+    const vntAllowance = await vnt.allowance(houseI, checkAddress)
+    if (parseFloat(ethers.utils.formatEther(vntAllowance)) > 0) {
+      SYMBOL = "VNT Allowance::"
+    }
+    content = (SYMBOL + ethers.utils.formatEther(vntAllowance))
     writeLog(content)
   }
   content = ("bot is running");
