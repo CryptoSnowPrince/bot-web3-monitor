@@ -6,7 +6,7 @@
     "scripts": {
         "start": "cross-env NODE_ENV=production node index.js",
         "start-damon": "nodemon index.js",
-        "start-bot": "cross-env NODE_ENV=production pm2 start index.js",
+        "start-bot": "cross-env NODE_ENV=production pm2 start index.js --bot-web3-monitor",
         "stop-bot": "pm2 stop index.js",
         "test": "echo \"Error: no test specified\" && exit 1",
         "jtest": "node test.js"
