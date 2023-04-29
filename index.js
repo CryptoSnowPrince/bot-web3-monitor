@@ -3,7 +3,7 @@ require('log-timestamp');
 const fs = require('fs');
 const ABI = require("./abi.json")
 
-const provider = new ethers.providers.JsonRpcProvider("https://rpc.cryptosnowprince.com/rpc56/");
+const provider = new ethers.providers.JsonRpcProvider("https://bsc-dataseed.binance.org");
 const address = "0xb7e9184502C3c883c28173A83b1291d7Ef2571bC"
 const contract = new ethers.Contract(address, ABI, provider);
 const busdAddress = "0xe9e7cea3dedca5984780bafc599bd69add087d56"
